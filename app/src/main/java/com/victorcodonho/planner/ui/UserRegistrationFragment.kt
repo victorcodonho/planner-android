@@ -73,7 +73,7 @@ class UserRegistrationFragment : Fragment() {
             }
 
             btnSaveUser.setOnClickListener {
-                userRegistrationViewModel.saveIsUserRegistered(isUserRegistered = true)
+                userRegistrationViewModel.saveProfile()
                 navController.navigate(R.id.action_userRegistrationFragment_to_homeFragment)
             }
         }
