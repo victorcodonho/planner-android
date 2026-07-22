@@ -29,6 +29,10 @@ class UpdatePlannerActivityDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
+    companion object {
+        const val TAG = "UpdatePlannerActivityDialogFragment"
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

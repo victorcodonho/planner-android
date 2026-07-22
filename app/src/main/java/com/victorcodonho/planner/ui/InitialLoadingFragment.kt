@@ -5,12 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.victorcodonho.planner.R
 import com.victorcodonho.planner.databinding.FragmentInitialLoadingBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class InitialLoadingFragment : Fragment() {
 
     private var _binding: FragmentInitialLoadingBinding? = null
     private val binding get() = _binding!!
+
+    private val navController by lazy { findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +32,10 @@ class InitialLoadingFragment : Fragment() {
 
         with(binding) {
             // TODO: Implement initial loading screen logic here
+            lifecycleScope.launch {
+                delay(1_500)
+                navController.navigate(R.id.action_initialLoadingFragment_to_userRegistrationFragment)
+            }
         }
     }
 
