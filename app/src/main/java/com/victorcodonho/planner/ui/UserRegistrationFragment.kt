@@ -14,6 +14,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.victorcodonho.planner.R
+import com.victorcodonho.planner.data.utils.imageBitmapToBase64
+import com.victorcodonho.planner.data.utils.imageUriToBitmap
 import com.victorcodonho.planner.databinding.FragmentUserRegistrationBinding
 import com.victorcodonho.planner.ui.viewmodel.UserRegistrationViewModel
 import kotlinx.coroutines.launch
@@ -29,8 +31,13 @@ class UserRegistrationFragment : Fragment() {
 
     private val pickMedia = registerForActivityResult(PickVisualMedia()) { uri ->
         if (uri != null) {
-            binding.ivAddPhoto.setImageURI(uri)
-            userRegistrationViewModel.updateProfile(image = uri.toString())
+            val imageBitmap = requireContext().imageUriToBitmap(uri = uri)
+
+            imageBitmap?.let {
+                val imageBase64 = imageBitmapToBase64(bitmap = imageBitmap)
+                userRegistrationViewModel.updateProfile(image = imageBase64)
+                binding.ivAddPhoto.setImageURI(uri)
+            }
         } else {
             Toast.makeText(requireContext(), "Ops... Nenhuma foto selecionada.", Toast.LENGTH_SHORT).show()
         }
