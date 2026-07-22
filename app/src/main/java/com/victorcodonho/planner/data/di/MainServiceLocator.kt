@@ -6,13 +6,18 @@ import com.victorcodonho.planner.data.datasource.UserRegistrationLocalDataSource
 
 object MainServiceLocator {
 
-    private lateinit var application: Application
+    private var _application: Application? = null
+    private val application: Application get() = _application!!
 
     val userRegistrationLocalDataSource: UserRegistrationLocalDataSource by lazy {
         UserRegistrationLocalDataSourceImpl(applicationContext = application.applicationContext)
     }
 
     fun initalize(application: Application) {
-        this.application = application
+        _application = application
+    }
+
+    fun clear() {
+        _application = null
     }
 }
