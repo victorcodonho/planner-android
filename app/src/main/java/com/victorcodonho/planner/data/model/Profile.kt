@@ -1,0 +1,12 @@
+package com.victorcodonho.planner.data.model
+
+data class Profile(
+    val name: String = "",
+    val email: String = "",
+    val phone: String = "",
+    val image: String = "" // Format base64
+) {
+    fun isValid(): Boolean {
+        return name.isNotEmpty() && email.isNotEmpty() && phone.isNotEmpty() && image.isNotEmpty()
+    }
+}
