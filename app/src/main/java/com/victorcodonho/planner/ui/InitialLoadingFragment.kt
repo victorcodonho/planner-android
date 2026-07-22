@@ -1,23 +1,22 @@
 package com.victorcodonho.planner.ui
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.victorcodonho.planner.databinding.FragmentHomeBinding
+import com.victorcodonho.planner.databinding.FragmentInitialLoadingBinding
 
-class HomeFragment : Fragment() {
+class InitialLoadingFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentInitialLoadingBinding? = null
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentInitialLoadingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -25,7 +24,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            // TODO: Implement home screen logic here
+            // TODO: Implement initial loading screen logic here
         }
     }
 

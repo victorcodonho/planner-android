@@ -1,11 +1,10 @@
 package com.victorcodonho.planner.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.victorcodonho.planner.R
+import androidx.fragment.app.Fragment
 import com.victorcodonho.planner.databinding.FragmentUserRegistrationBinding
 
 class UserRegistrationFragment : Fragment() {
