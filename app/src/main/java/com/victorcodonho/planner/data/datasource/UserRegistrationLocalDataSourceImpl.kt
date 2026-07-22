@@ -1,6 +1,5 @@
 package com.victorcodonho.planner.data.datasource
 
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 
@@ -8,7 +7,7 @@ private const val USER_REGISTRATION_FILE_NAME = "user_registration"
 private const val IS_USER_REGISTERED = "is_user_registered"
 
 class UserRegistrationLocalDataSourceImpl(
-    private val applicationContext: Application
+    private val applicationContext: Context
 ): UserRegistrationLocalDataSource {
 
     val userRegistrationSharedPreferences: SharedPreferences = applicationContext.getSharedPreferences(
