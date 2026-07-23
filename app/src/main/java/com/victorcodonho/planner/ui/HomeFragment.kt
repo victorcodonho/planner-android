@@ -1,12 +1,13 @@
 package com.victorcodonho.planner.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.victorcodonho.planner.R
@@ -21,7 +22,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    val userRegistrationViewModel: UserRegistrationViewModel by viewModels()
+    val userRegistrationViewModel: UserRegistrationViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -62,6 +63,7 @@ class HomeFragment : Fragment() {
                 userRegistrationViewModel.isTokenValid.distinctUntilChanged {
                     old, new -> old == new
                 }.collect { isTokenValid ->
+                    Log.d("CheckIsTokenValid", "setupObservers: isTokenValid = $isTokenValid")
                     if (isTokenValid == false) showNewTokenSnackBar()
                 }
             }

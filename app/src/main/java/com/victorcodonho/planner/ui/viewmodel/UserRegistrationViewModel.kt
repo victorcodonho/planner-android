@@ -7,6 +7,7 @@ import com.victorcodonho.planner.data.datasource.AuthenticationLocalDataSource
 import com.victorcodonho.planner.data.datasource.UserRegistrationLocalDataSource
 import com.victorcodonho.planner.data.di.MainServiceLocator
 import com.victorcodonho.planner.data.model.Profile
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -55,6 +56,7 @@ class UserRegistrationViewModel: ViewModel() {
                     tokenExpirationDatetime?.let { tokenExpirationDatetime ->
                         val datetimeNow = System.currentTimeMillis()
                         _isTokenValid.value = tokenExpirationDatetime >= datetimeNow
+                        Log.d("CheckIsTokenValid", "viewModelScope: isTokenValid = ${_isTokenValid.value}")
                     }
 
                     delay(5_000)
@@ -91,16 +93,22 @@ class UserRegistrationViewModel: ViewModel() {
         Log.d("UserRegistrationViewModel", "updateProfile: ${_profile.value}")
     }
 
-    fun saveProfile() {
+    fun saveProfile(onCompleted: () -> Unit) {
         viewModelScope.launch {
-            userRegistrationLocalDataSource.saveProfile(profile = profile.value)
-            userRegistrationLocalDataSource.saveIsUserRegistered(isUserRegistered = true)
+            async {
+                userRegistrationLocalDataSource.saveProfile(profile = profile.value)
+                userRegistrationLocalDataSource.saveIsUserRegistered(isUserRegistered = true)
+                authenticationLocalDataSource.insertToken(token = mockToken)
+                _isTokenValid.value = true
+            }.await()
+            onCompleted()
         }
     }
 
     fun obtainNewToken() {
         viewModelScope.launch {
             authenticationLocalDataSource.insertToken(token = mockToken)
+            _isTokenValid.value = true
         }
     }
 }
